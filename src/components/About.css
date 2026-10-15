@@ -1,0 +1,98 @@
+.about-section {
+  padding: 6rem 2rem; /* Increased padding for better section breathing room */
+  background-color: transparent; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-container {
+  max-width: 1100px; 
+  width: 100%;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Made the line slightly softer and more transparent for a glass-like feel */
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.about-content {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px; /* Slightly narrower for an optimal reading experience */
+}
+
+/* Premium UI Trick: Makes the very first paragraph stand out as an intro */
+.about-content p:first-of-type {
+  font-size: 1.25rem;
+  color: #d1d5db;
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+/* Gives the highlighted text a subtle glowing effect */
+.highlight-text {
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.about-actions {
+  margin-top: 2rem; /* More breathing room above the button */
+}
+
+/* Upgraded Resume Button */
+.resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0d0e12;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 8px; /* Slightly rounder for a modern look */
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother, cinematic animation */
+  align-self: flex-start; 
+}
+
+/* Added a hover lift and a subtle outer glow */
+.resume-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  .about-content p:first-of-type {
+    font-size: 1.15rem;
+  }
+  .about-content {
+    font-size: 1rem;
+  }
+}

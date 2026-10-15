@@ -1,0 +1,115 @@
+.hero-section {
+  min-height: 100vh; /* Change this from 85vh to 100vh */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #1a1c23 0%, #0d0e12 100%);
+  gap: 2rem; 
+  position: relative;
+}
+
+/* 1. Ambient Center Glow */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-name {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  margin: 0;
+  color: #ffffff; 
+  letter-spacing: -0.04em; 
+  line-height: 1.1;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Adds physical depth behind the text */
+  position: relative;
+  z-index: 1; /* Keeps text above the glow */
+}
+
+.hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  color: #a1a1aa;
+  margin: 0;
+  font-weight: 400;
+  height: 40px;
+  letter-spacing: -0.01em;
+  display: flex;
+  justify-content: center;
+  min-width: 320px; 
+  position: relative;
+  z-index: 1;
+}
+
+.typewriter-text {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.social-container {
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* 2. Tactile Glass Social Icons */
+.social-icon {
+  color: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Fixed width/height ensures they are perfect squares */
+  height: 48px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px; /* Smooth, modern corners */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Sleek Pill-Shaped CTA Button */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.5rem; /* Slightly padded for the pill shape */
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0d0e12;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 999px; /* Creates the perfect pill shape */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* Cinematic hover state matched to your About section button */
+.cta-button:hover {
+  background: transparent;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.15);
+}

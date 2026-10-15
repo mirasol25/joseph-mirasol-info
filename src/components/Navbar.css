@@ -1,0 +1,49 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Made taller to give the gradient room to fade */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 1.5rem; /* Keeps the text in the solid upper area */
+  z-index: 1000;
+  
+  /* Matches your dark theme and fades to completely transparent */
+  background: linear-gradient(to bottom, rgba(13, 14, 18, 0.95) 20%, rgba(13, 14, 18, 0) 100%);
+  
+  /* Applies the blur, but uses a mask to fade the blur out smoothly */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  
+  border: none; /* Deletes the harsh line */
+}
+
+/* Ensure the links container is centered properly */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: #a1a1aa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0.5rem;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+}

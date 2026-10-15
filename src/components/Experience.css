@@ -1,0 +1,129 @@
+.experience-section {
+  padding: 6rem 2rem;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.experience-container {
+  max-width: 1100px; 
+  width: 100%;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Tighter gap because the new cards take up structured space */
+  margin-top: 2rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.08); /* Softer, ambient line */
+  padding-left: 2.5rem; 
+  max-width: 850px; 
+}
+
+.timeline-item {
+  position: relative;
+  /* Removed transition from here, moved to .timeline-content for the card effect */
+}
+
+/* Math-Perfect Timeline Dot Alignment */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  /* 2.5rem padding + 1px (half the 2px border) = dead center of the line */
+  left: calc(-2.5rem - 7px); 
+  top: 1.5rem; /* Aligns perfectly with the center of the Role Title */
+  width: 12px;
+  height: 12px;
+  background-color: #0d0e12; 
+  border: 2px solid #52525b; 
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+/* Dot Glow Effect */
+.timeline-item:hover::before {
+  border-color: #ffffff;
+  background-color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+/* The Glass Card Reveal (Wraps your h3, h4, and p) */
+.timeline-content {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Slides the whole card over and fades in the glass backing */
+.timeline-item:hover .timeline-content {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05);
+  transform: translateX(10px);
+  box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Targeting the specific class names from your TSX */
+.timeline-role, .role-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.timeline-company, .company-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #a1a1aa; /* Dimmer than the title to establish hierarchy */
+  margin-bottom: 1rem;
+}
+
+/* Upgraded Date Pill */
+.timeline-duration {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #d1d5db;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px; /* Transforms the box into a modern pill */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-description, .role-description {
+  color: #a1a1aa;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  transition: color 0.3s ease;
+}
+
+/* Brightens the description text slightly when hovering over the card */
+.timeline-item:hover .timeline-description, 
+.timeline-item:hover .role-description {
+  color: #e4e4e7;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  .timeline-item::before {
+    left: calc(-1.5rem - 7px);
+  }
+  .timeline-content {
+    padding: 1rem;
+  }
+  .timeline-role, .role-title {
+    font-size: 1.2rem;
+  }
+  .timeline-item:hover .timeline-content {
+    transform: translateX(4px); /* Tighter slide on small screens */
+  }
+}
