@@ -42,8 +42,85 @@
   color: #ffffff;
 }
 
+/* --- MOBILE HAMBURGER ICON --- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1001; /* Keeps the icon above the slide-out menu */
+}
+
+.bar {
+  width: 25px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* --- MOBILE LAYOUT --- */
+/* --- MOBILE LAYOUT --- */
 @media (max-width: 768px) {
   .navbar {
-    display: none;
+    height: 80px; /* Slimmer header for mobile */
+    justify-content: flex-end; 
+    align-items: center; /* Perfectly centers the hamburger vertically */
+    padding: 0 1.5rem; /* Removes awkward top padding, adds side padding */
+    
+    /* Bring back the premium glass effect instead of the solid block */
+    background: rgba(13, 14, 18, 0.75); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    
+    /* Keep the mask off so the menu slide-out doesn't turn invisible */
+    -webkit-mask-image: none;
+    mask-image: none;
+    
+    /* Adds a very subtle bottom line to separate the header from the content */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .hamburger {
+    display: flex; 
+  }
+
+  /* Slide-out Menu Container */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; 
+    width: 70vw; 
+    height: 100vh;
+    /* Dark, sleek background for the slide-out panel */
+    background-color: rgba(13, 14, 18, 0.98); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: -15px 0 30px rgba(0,0,0,0.6);
+  }
+
+  .nav-links.active {
+    right: 0; 
+  }
+
+  .nav-link {
+    font-size: 1.25rem; 
+  }
+
+  /* Hamburger to X Animation */
+  .bar.open:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .bar.open:nth-child(2) {
+    opacity: 0;
+  }
+  .bar.open:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 }
