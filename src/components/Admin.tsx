@@ -10,7 +10,9 @@ const Admin = () => {
   const [certs, setCerts] = useState<any[]>([]);
   const [aboutData, setAboutData] = useState<any>({ content: '', resume_link: '' });
   
-  // UPGRADED: Hero State with all social links
+  // NEW: Contact state
+  const [contactData, setContactData] = useState<any>({ title: '', description: '', email: '', phone: '' });
+  
   const [heroData, setHeroData] = useState<any>({
     name: '', typing_text: '', github_link: '', linkedin_link: '', facebook_link: '', email_link: '',
     twitter_link: '', instagram_link: '', youtube_link: '', tiktok_link: '', discord_link: '', dribbble_link: ''
@@ -28,7 +30,7 @@ const Admin = () => {
   const [isCertUploading, setIsCertUploading] = useState(false);
 
   useEffect(() => {
-    fetchHero(); fetchProjects(); fetchExperiences(); fetchCerts(); fetchAbout();
+    fetchHero(); fetchProjects(); fetchExperiences(); fetchCerts(); fetchAbout(); fetchContact();
   }, []);
 
   const fetchHero = async () => { 
@@ -39,8 +41,10 @@ const Admin = () => {
   const fetchExperiences = async () => { const { data } = await supabase.from('experience').select('*').order('sort_order'); if (data) setExperiences(data); };
   const fetchCerts = async () => { const { data } = await supabase.from('certifications').select('*').order('sort_order'); if (data) setCerts(data); };
   const fetchAbout = async () => { const { data } = await supabase.from('about_section').select('*').eq('id', 1).single(); if (data) setAboutData(data); };
+  
+  // Fetch Contact Settings
+  const fetchContact = async () => { const { data } = await supabase.from('contact_settings').select('*').eq('id', 1).single(); if (data) setContactData(data); };
 
-  // UPGRADED: Save all social links
   const saveHero = async (e: React.FormEvent) => {
     e.preventDefault();
     const typingArray = heroData.typing_text.split(',').map((t: string) => t.trim());
@@ -112,6 +116,20 @@ const Admin = () => {
     setResumeFile(null); setIsUploading(false); alert("About updated!");
   };
 
+  // NEW: Save Contact Settings
+  const saveContact = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { error } = await supabase.from('contact_settings').update({
+      title: contactData.title,
+      description: contactData.description,
+      email: contactData.email,
+      phone: contactData.phone
+    }).eq('id', 1);
+
+    if (error) alert("Error updating contact: " + error.message);
+    else alert("Contact settings updated!");
+  };
+
   const deleteRecord = async (table: string, id: number, refreshFn: () => void) => {
     if (!window.confirm(`Delete this from ${table}?`)) return;
     await supabase.from(table).delete().eq('id', id); refreshFn();
@@ -137,9 +155,11 @@ const Admin = () => {
           <button className={activeTab === 'experience' ? 'active' : ''} onClick={() => {setActiveTab('experience'); resetForms();}}>Experience</button>
           <button className={activeTab === 'certs' ? 'active' : ''} onClick={() => {setActiveTab('certs'); resetForms();}}>Certs</button>
           <button className={activeTab === 'about' ? 'active' : ''} onClick={() => {setActiveTab('about'); resetForms();}}>About</button>
+          {/* NEW: Contact Tab Button */}
+          <button className={activeTab === 'contact' ? 'active' : ''} onClick={() => {setActiveTab('contact'); resetForms();}}>Contact</button>
         </div>
 
-        {/* UPGRADED HERO TAB */}
+        {/* HERO */}
         {activeTab === 'hero' && (
           <form className="admin-box" onSubmit={saveHero}>
             <h3>Update Hero Section</h3>
@@ -272,6 +292,51 @@ const Admin = () => {
             <label style={{color: '#fff', fontSize: '0.9rem', marginTop: '1rem'}}>About Me Text:</label>
             <textarea style={{minHeight: '200px'}} placeholder="Your bio here..." value={aboutData.content} onChange={e => setAboutData({...aboutData, content: e.target.value})} required />
             <button type="submit" className="admin-btn" disabled={isUploading}>{isUploading ? 'Uploading & Saving...' : 'Save Changes'}</button>
+          </form>
+        )}
+
+        {/* NEW: CONTACT SECTION */}
+        {activeTab === 'contact' && (
+          <form className="admin-box" onSubmit={saveContact}>
+            <h3>Update Contact Information</h3>
+            
+            <label style={{color: '#fff', fontSize: '0.9rem'}}>Section Title:</label>
+            <input 
+              type="text" 
+              value={contactData.title || ''} 
+              onChange={e => setContactData({...contactData, title: e.target.value})} 
+              required 
+            />
+            
+            <label style={{color: '#fff', fontSize: '0.9rem', marginTop: '1rem'}}>Description text:</label>
+            <textarea 
+              style={{minHeight: '100px'}} 
+              value={contactData.description || ''} 
+              onChange={e => setContactData({...contactData, description: e.target.value})} 
+              required 
+            />
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
+              <div>
+                <label style={{color: '#fff', fontSize: '0.9rem'}}>Contact Email:</label>
+                <input 
+                  type="email" 
+                  value={contactData.email || ''} 
+                  onChange={e => setContactData({...contactData, email: e.target.value})} 
+                  required 
+                />
+              </div>
+              <div>
+                <label style={{color: '#fff', fontSize: '0.9rem'}}>Contact Phone (optional):</label>
+                <input 
+                  type="text" 
+                  value={contactData.phone || ''} 
+                  onChange={e => setContactData({...contactData, phone: e.target.value})} 
+                />
+              </div>
+            </div>
+
+            <button type="submit" className="admin-btn" style={{ marginTop: '1.5rem' }}>Save Contact Info</button>
           </form>
         )}
 

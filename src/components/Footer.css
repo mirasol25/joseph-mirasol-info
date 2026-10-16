@@ -1,41 +1,188 @@
 .footer-section {
-  padding: 3rem 2rem;
-  background-color: #0a0a0a;
-  border-top: 1px solid #27272a;
+  padding: 6rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  position: relative;
+}
+
+.contact-container {
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+/* --- Left Side: Info & Cards --- */
+.contact-info-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-description {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.footer-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.footer-text {
-  color: #a1a1aa;
-  font-size: 0.95rem;
-  max-width: 500px;
-  line-height: 1.6;
-}
-
-.footer-email {
-  color: #ffffff;
-  font-weight: 600;
+.contact-glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
   text-decoration: none;
-  font-size: 1.1rem;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.footer-email:hover {
-  color: #d1d5db;
+.contact-glass-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
 }
 
-.footer-copyright {
-  color: #52525b;
+.contact-icon {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a1a1aa;
+  letter-spacing: 1px;
+  margin-bottom: 0.2rem;
+}
+
+.contact-value {
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* --- Right Side: Form --- */
+.contact-form-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-form {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
   font-size: 0.85rem;
-  margin-top: 2rem;
+  font-weight: 600;
+  color: #ededed;
+  letter-spacing: 0.5px;
+}
+
+.glass-form input,
+.glass-form textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-form input:focus,
+.glass-form textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.submit-btn {
+  background: #ffffff;
+  color: #0d0e12;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #e4e4e7;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background: #52525b;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.status-msg.success { color: #4ade80; }
+.status-msg.error { color: #f87171; }
+
+/* --- Copyright --- */
+.footer-copyright {
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #71717a;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .section-title {
+    text-align: center !important;
+  }
+  .contact-description {
+    text-align: center;
+  }
 }

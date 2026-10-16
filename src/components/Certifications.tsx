@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { FaAward, FaExternalLinkAlt } from 'react-icons/fa';
+import PreviewModal from './PreviewModal';
 import './Certifications.css';
 
 interface Certification {
@@ -13,6 +14,11 @@ interface Certification {
 const Certifications = () => {
   const [certs, setCerts] = useState<Certification[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Modal State
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [currentFileUrl, setCurrentFileUrl] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
 
   useEffect(() => {
     fetchCertifications();
@@ -32,6 +38,17 @@ const Certifications = () => {
     setLoading(false);
   }
 
+  // Opens the modal instead of a new tab
+  const handleOpenCertificate = (fileUrl: string, title: string) => {
+    if (fileUrl) {
+      setCurrentFileUrl(fileUrl);
+      setCurrentTitle(title);
+      setIsPreviewOpen(true);
+    } else {
+      alert("No file has been uploaded for this certification yet.");
+    }
+  };
+
   return (
     <section id="certifications" className="cert-section">
       <div className="cert-container">
@@ -42,11 +59,10 @@ const Certifications = () => {
         ) : (
           <div className="cert-grid">
             {certs.map((cert) => (
-              <a 
+              /* Changed from <a> to <button> to prevent navigation */
+              <button 
                 key={cert.id} 
-                href={cert.file_link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+                onClick={() => handleOpenCertificate(cert.file_link, cert.title)}
                 className="cert-card"
               >
                 <div className="cert-icon">
@@ -59,11 +75,19 @@ const Certifications = () => {
                 <div className="cert-link-icon">
                   <FaExternalLinkAlt size={14} />
                 </div>
-              </a>
+              </button>
             ))}
           </div>
         )}
       </div>
+
+      {/* The Unified Preview Modal */}
+      <PreviewModal 
+        isOpen={isPreviewOpen} 
+        onClose={() => setIsPreviewOpen(false)} 
+        fileUrl={currentFileUrl}
+        title={currentTitle}
+      />
     </section>
   );
 };
