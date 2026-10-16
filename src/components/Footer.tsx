@@ -50,18 +50,50 @@ const Footer = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Saves the message to your Supabase 'messages' table
+    // 1. Save to Supabase (keeps a backup in your Admin Inbox)
     const { error } = await supabase
       .from('messages')
       .insert([formData]);
 
     if (error) {
-      console.error("Error submitting message:", error);
+      console.error("Error submitting message to database:", error);
       setSubmitStatus('error');
-    } else {
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' }); // Clear form
+      setIsSubmitting(false);
+      return;
     }
+
+    // 2. Send directly to your Email via Web3Forms
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // PASTE YOUR WEB3FORMS ACCESS KEY HERE:
+          access_key: "b204b0c0-181d-42a7-9ff5-3f6775f7d390", 
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`,
+          from_name: "My Portfolio",
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' }); // Clear form
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      console.error("Email send failed:", err);
+      setSubmitStatus('error');
+    }
+
     setIsSubmitting(false);
   };
 
